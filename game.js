@@ -4,16 +4,16 @@ function brickBreaker() {
   
     let x = canvas.width / 2;
     let y = canvas.height - 30;
-    let dx = 2;
+    let dx = (6 * Math.random()) - 3;
     let dy = -2;
     const ballRadius = 10;
     const paddleHeight = 10;
-    const paddleWidth = 75;
-    let paddleX = (canvas.width - paddleWidth) / 2;
+    const paddleWidth = 100;
+    let paddleX = (canvas.width - paddleWidth) / 2 -300;
     let rightPressed = false;
     let leftPressed = false;
-    const brickRowCount = 3;
-    const brickColumnCount = 5;
+    const brickRowCount = 5;
+    const brickColumnCount = 11;
     const brickWidth = 83;
     const brickHeight = 28;
     const brickPadding = 2;
@@ -21,7 +21,7 @@ function brickBreaker() {
     const brickOffsetLeft = 30;
     let score = 0;
     let lives = 3;
-  
+
     const bricks = [];
     for (let c = 0; c < brickColumnCount; c++) {
       bricks[c] = [];
@@ -80,15 +80,15 @@ function brickBreaker() {
     function drawBall() {
       ctx.beginPath();
       ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
-      ctx.fillStyle = "#0095DD";
+      ctx.fillStyle = "#33CCFF";
       ctx.fill();
       ctx.closePath();
     }
   
     function drawPaddle() {
       ctx.beginPath();
-      ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
-      ctx.fillStyle = "#0095DD";
+      ctx.roundRect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight, 5);
+      ctx.fillStyle = "#33CCFF";
       ctx.fill();
       ctx.closePath();
     }
@@ -103,7 +103,7 @@ function brickBreaker() {
             bricks[c][r].y = brickY;
             ctx.beginPath();
             ctx.rect(brickX, brickY, brickWidth, brickHeight);
-            ctx.fillStyle = "#0095DD";
+            ctx.fillStyle = '#' + parseInt(Math.random() * 0xffffff).toString(16);
             ctx.fill();
             ctx.closePath();
           }
@@ -113,13 +113,13 @@ function brickBreaker() {
   
     function drawScore() {
       ctx.font = "16px Arial";
-      ctx.fillStyle = "#0095DD";
+      ctx.fillStyle = "#57d313";
       ctx.fillText(`Score: ${score}`, 8, 20);
     }
   
     function drawLives() {
       ctx.font = "16px Arial";
-      ctx.fillStyle = "#0095DD";
+      ctx.fillStyle = "#FF0000";
       ctx.fillText(`Lives: ${lives}`, canvas.width - 65, 20);
     }
   
@@ -157,13 +157,13 @@ function brickBreaker() {
         }
       }
   
-      x += dx * 4;
-      y += dy * 4;
+      x += dx * 3;
+      y += dy * 3;
   
       if (rightPressed) {
-        paddleX = Math.min(paddleX + 7, canvas.width - paddleWidth);
+        paddleX = Math.min(paddleX + 14, canvas.width - paddleWidth);
       } else if (leftPressed) {
-        paddleX = Math.max(paddleX - 7, 0);
+        paddleX = Math.max(paddleX - 14, 0);
       }
   
       animationId = requestAnimationFrame(draw);
@@ -171,7 +171,6 @@ function brickBreaker() {
   
     let animationId = requestAnimationFrame(draw);
 
-    document.getElementById("start").addEventListener("click", brickBreaker);
     document.addEventListener("keydown", function (e) {
       if (e.key === "p" || e.key === "P") {
         togglePause();
@@ -189,3 +188,4 @@ function brickBreaker() {
   }
   
   document.getElementById("start").addEventListener("click", brickBreaker);
+

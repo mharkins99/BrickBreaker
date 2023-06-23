@@ -7,12 +7,21 @@
   </head>
   <body>
     <div id="container">
-      <input type="button" id="start" onclick="brickBreaker()" value="Start">
+      <input type="button" id="start" onclick="hideElement()" value="Start">
       <h2>Brick Breaker</h2>
       <p>Use your mouse or left/right arrows to control the borat at the bottom and break all of the brick before you run out of lives</p>
-      <p>Press "P" to pause the game</p>
-      <canvas id="myCanvas" width="1000" height="600"></canvas>
+      <p>Press "P" to pause or continue the game</p>
+      <div id="overlay">
+        <!-- <img src="logo.jpeg" id="logo"> -->
+        <canvas id="myCanvas" width="1000" height="600"></canvas>
+      </div>
     </div>
+    <script>
+      function hideElement() {
+        var startButton = document.getElementById("start");
+        startButton.style.display = "none";
+      }
+    </script>
     <script src="game.js"></script>
   </body>
 </html>
